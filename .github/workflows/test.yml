@@ -20,4 +20,4 @@ jobs:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: 
-          VERSION=v5.5.0-release ./build.sh
+          VERSION=${{ steps.extract_branch.outputs.branch }}-dev ./build.sh
