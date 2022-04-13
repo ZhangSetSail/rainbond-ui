@@ -22,6 +22,6 @@ jobs:
           VERSION: ${{ github.event.client_payload.branch }}
         run: |
           git clone -b ${{ github.event.client_payload.branch }} https://github.com/${{ secrets.GITHUB_USER }}:"${{ secrets.GITHUB_PASSWORD }}"@github.com/ZhangSetSail/rainbond-ui.git        
-          cd rainbond-ui-cloud
+          cd rainbond-ui
           chmod +x ./build.sh
           ./build.sh
