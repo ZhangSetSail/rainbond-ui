@@ -22,5 +22,5 @@ jobs:
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: 
           echo "${{ github.event.action }}"
-          echo "${{ toJson(github.event.client_payload) }}"
+          echo "${{ toJson(github.event.client_payload).branch }}"
 
