@@ -21,7 +21,7 @@ jobs:
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
           VERSION: ${{ github.event.client_payload.branch }}
         run: 
-          git clone -b ${{ github.event.client_payload.branch }} https://${{ secrets.GITHUB_USER }}:"${{ secrets.GITHUB_PASSWORD }}"git@github.com:ZhangSetSail/rainbond-ui.git
-          cd rainbond-ui-cloud
-          chmod +x ./build.sh
+          git clone -b ${{ github.event.client_payload.branch }} https://${{ secrets.GITHUB_USER }}:"${{ secrets.GITHUB_PASSWORD }}"git@github.com:ZhangSetSail/rainbond-ui.git;
+          cd rainbond-ui-cloud;
+          chmod +x ./build.sh;
           ./build.sh
