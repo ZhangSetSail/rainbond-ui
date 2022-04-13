@@ -3,6 +3,7 @@ on:
   repository_dispatch:
     types:
       - zqhTest
+      - zqhTast
 
 jobs:
   build:
@@ -20,4 +21,5 @@ jobs:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: 
-          VERSION=${{ steps.extract_branch.outputs.branch }}-dev ./build.sh
+          echo "${{ github.event.action }}"
+
