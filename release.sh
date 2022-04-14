@@ -27,7 +27,7 @@ if [ ${BUILD_RBD_APP_UI} == "true" ]; then
 
 	if [ ${DOMESTIC_BASE_NAME} ]; then
 		newTag="${DOMESTIC_BASE_NAME}/${DOMESTIC_NAMESPACE}/rbd-app-ui:${VERSION}"
-		docker tag "rainbond/rbd-app-ui:$VERSION" "${newTag}"
+		docker tag ${IMAGE_DOMAIN}/${IMAGE_NAMESPACE}/rbd-app-ui:$VERSION" "${newTag}"
 		docker login -u "$DOMESTIC_DOCKER_USERNAME" -p "$DOMESTIC_DOCKER_PASSWORD" ${DOMESTIC_BASE_NAME}
 		docker push "${newTag}"
 	fi
