@@ -19,3 +19,15 @@ BASE_VERSION=V5.3
 echo "$DOCKER_PASSWORD" | docker login ${IMAGE_DOMAIN} -u "$DOCKER_USERNAME" --password-stdin
 docker build --build-arg VERSION="${BASE_VERSION}" --build-arg IMAGE_DOMAIN="${IMAGE_DOMAIN}" --build-arg IMAGE_NAMESPACE="${IMAGE_NAMESPACE}" -t ${IMAGE_NAME} .
 docker push ${IMAGE_NAME}
+if [ ${BUILD_RBD_APP_UI} == "true" ]; then
+	mv dist build/dist
+	docker build --build-arg VERSION="${VERSION}" --build-arg IMAGE_DOMAIN="${IMAGE_DOMAIN}" --build-arg IMAGE_NAMESPACE="${IMAGE_NAMESPACE}" -t "${IMAGE_DOMAIN}/${IMAGE_NAMESPACE}/rbd-app-ui:$VERSION" ./build
+	docker push "${IMAGE_DOMAIN}/${IMAGE_NAMESPACE}/rbd-app-ui:$VERSION"
+
+	if [ ${DOMESTIC_BASE_NAME} ]; then
+		newTag="${DOMESTIC_BASE_NAME}/${DOMESTIC_NAMESPACE}/rbd-app-ui:${VERSION}"
+		docker tag "rainbond/rbd-app-ui:$VERSION" "${newTag}"
+		docker login -u "$DOMESTIC_DOCKER_USERNAME" -p "$DOMESTIC_DOCKER_PASSWORD" ${DOMESTIC_BASE_NAME}
+		docker push "${newTag}"
+	fi
+fi
