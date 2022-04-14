@@ -19,6 +19,7 @@ jobs:
           DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
+          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE}}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
           git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-ui.git        
@@ -48,7 +49,7 @@ jobs:
         env:
           VERSION: enterprise-2108
           TRAVIS_PULL_REQUEST: false
-          DOMESTIC_NAMESPACE: ""
+          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_BASE_NAME }}
           DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
           DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
