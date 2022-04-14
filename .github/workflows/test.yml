@@ -44,7 +44,7 @@ jobs:
         env:
           VERSION: ${{ github.event.client_payload.branch }}-dev
           TRAVIS_PULL_REQUEST: false
-          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_BASE_NAME }}
+          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE }}
           DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
           DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
