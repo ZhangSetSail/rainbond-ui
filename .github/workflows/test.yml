@@ -11,15 +11,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         env:
-          TRAVIS_PULL_REQUEST: false
           BUILD_RBD_APP_UI: false
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
-          DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
-          DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
-          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE}}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
           git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-ui.git        
