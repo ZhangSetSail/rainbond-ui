@@ -60,4 +60,5 @@ jobs:
           git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git   
           cd rainbond-console
           chmod +x  ./release.sh
+          echo $DOMESTIC_BASE_NAME
           ./release.sh allinone
