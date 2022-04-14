@@ -57,7 +57,7 @@ jobs:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git       
-          cd rainbond-console-cloud
+          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git   
+          cd rainbond-console
           chmod +x  ./release.sh
           ./release.sh allinone
