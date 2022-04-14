@@ -47,7 +47,7 @@ jobs:
         
       - name: Pull code and Build allinone image
         env:
-          VERSION: enterprise-2108
+          VERSION: ${{ github.event.client_payload.branch }}-dev
           TRAVIS_PULL_REQUEST: false
           DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_BASE_NAME }}
           DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
