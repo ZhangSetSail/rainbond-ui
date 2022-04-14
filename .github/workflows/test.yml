@@ -21,7 +21,39 @@ jobs:
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} https://${{ secrets.GITHUB_USER }}:${{ secrets.GITHUB_PASSWORD }}@github.com/ZhangSetSail/rainbond-ui.git        
+          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-ui.git        
           cd rainbond-ui
           chmod +x ./build.sh
           ./build.sh
+          
+  build-rainbond-allinone:
+    needs: build-ui
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log in to the mirror repository
+        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login image.goodrain.com -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
+        
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 yapf==0.26.0
+        
+      - name: Pull code and Build allinone image
+        env:
+          VERSION: enterprise-2108
+          TRAVIS_PULL_REQUEST: false
+          DOMESTIC_BASE_NAME: image.goodrain.com
+          DOMESTIC_NAMESPACE: ""
+          DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
+          DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
+        run: |
+          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git       
+          cd rainbond-console-cloud
+          chmod +x  ./release.sh
+          ./release.sh allinone
