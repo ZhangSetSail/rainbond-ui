@@ -1,6 +1,5 @@
 ARG VERSION=V5.3
 ARG IMAGE_DOMAIN=docker.io
-ARG IMAGE_NAMESPACE=rainbond
 
 FROM ${IMAGE_DOMAIN}/${IMAGE_NAMESPACE}/rbd-ui-base:${VERSION}
 ADD dist /dist
