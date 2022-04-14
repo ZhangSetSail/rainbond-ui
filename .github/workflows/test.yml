@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Log in to the mirror repository
-        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login image.goodrain.com -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login ${{ secrets.DOMESTIC_BASE_NAME }} -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
         
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
