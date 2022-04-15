@@ -78,6 +78,7 @@ jobs:
           BUILD_IMAGE_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
           DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
           DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
+          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE }}
         run: |
           git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond.git
           cd rainbond
