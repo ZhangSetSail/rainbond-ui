@@ -113,7 +113,7 @@ jobs:
           chmod +x ./check.sh
           ./check.sh
           docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-          docker build -t "${IMAGE_NAMESPACE}/rainbond-operator:${VERSION}" .
-			    docker push "${IMAGE_NAMESPACE}/rainbond-operator:${VERSION}"
+          docker build -t "${IMAGE_NAMESPACE}/rainbond-operator:release-2.1" .
+	  docker push "${IMAGE_NAMESPACE}/rainbond-operator:release-2.1"
 
           
