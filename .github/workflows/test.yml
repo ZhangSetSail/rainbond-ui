@@ -98,12 +98,8 @@ jobs:
         with:
           # The Go version to download (if necessary) and use. Supports semver spec and ranges.
           go-version: 1.15
-          
       - name: install-golint
         run: go get -u golang.org/x/lint/golint
-        
-      - name: Go-linter
-        run: ./check.sh
         
       - name: Build and push
         env:
@@ -112,6 +108,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
+          ./check.sh
           git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
           cd rainbond-operator
           chmod +x ./release.sh
