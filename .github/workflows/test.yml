@@ -76,7 +76,7 @@ jobs:
           DISABLE_GOPROXY: true
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
           
-          BUILD_IMAGE_BASE_NAME: ${{ secrets.IMAGE_NAMESPACE }}
+          IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           
@@ -88,3 +88,32 @@ jobs:
           cd rainbond
           chmod +x ./release.sh
           ./release.sh all push
+          
+  build-operator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Go environment
+        uses: actions/setup-go@v2.1.3
+        with:
+          # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+          go-version: 1.15
+      - name: install-golint
+        run: go get -u golang.org/x/lint/golint
+
+      - name: Build and push
+        env:
+          IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          VERSION: ${{ github.event.client_payload.branch }}-dev
+        run: |
+          git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
+          cd rainbond-operator
+          chmod +x ./check.sh
+          ./check.sh
+          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+          docker build -t "${IMAGE_NAMESPACE}/rainbond-operator:${VERSION}" .
+			    docker push "${IMAGE_NAMESPACE}/rainbond-operator:${VERSION}"
+
+          
