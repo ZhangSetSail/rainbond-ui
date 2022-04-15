@@ -111,4 +111,32 @@ jobs:
           git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
           cd rainbond-operator
           chmod +x ./release.sh
-          ./release.sh        
+          ./release.sh 
+          
+  build-dind:
+    needs: build-rainbond-region
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log in to the mirror repository
+        run: echo "${{ secrets.HUB_PASSWD }}" | docker login image.goodrain.com -u ${{ secrets.HUB_USER }} --password-stdin
+
+      - name: Pack offline packages
+        env:
+          RBD_VER: ${{ github.event.client_payload.branch }}
+        run: ｜
+          git clone -b master https://github.com/ZhangSetSail/build-offlice-package.git
+          cd build-offlice-package
+          chmod +x ./enterprise_offline_package.sh 
+          ./enterprise_offline_package.sh
+        
+      - name: Setup aliyun oss
+        uses: manyuanrong/setup-ossutil@master
+        with:
+          endpoint: oss-cn-shanghai.aliyuncs.com
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+          
+      - name:  Push to OSS
+        run: ossutil cp -rf rainbond-offline-*.tgz oss://rainbond-pkg/offline/zqhtest/
