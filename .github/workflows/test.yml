@@ -98,9 +98,13 @@ jobs:
         with:
           # The Go version to download (if necessary) and use. Supports semver spec and ranges.
           go-version: 1.15
+          
       - name: install-golint
         run: go get -u golang.org/x/lint/golint
-
+        
+      - name: Go-linter
+        run: ./check.sh
+        
       - name: Build and push
         env:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
@@ -110,5 +114,5 @@ jobs:
         run: |
           git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
           cd rainbond-operator
-          chmod +x ./check.sh
-          ./check.sh         
+          chmod +x ./release.sh
+          ./release.sh        
