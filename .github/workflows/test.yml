@@ -124,6 +124,7 @@ jobs:
 
       - name: Pack offline packages
         env:
+          IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           RBD_VER: ${{ github.event.client_payload.branch }}-dev
         run: ｜
           git clone -b master https://github.com/ZhangSetSail/build-offlice-package.git
