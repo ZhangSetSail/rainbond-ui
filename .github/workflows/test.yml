@@ -108,8 +108,8 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
-          ./check.sh
           git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
           cd rainbond-operator
+          ./check.sh
           chmod +x ./release.sh
           ./release.sh        
