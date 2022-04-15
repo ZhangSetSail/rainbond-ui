@@ -111,9 +111,4 @@ jobs:
           git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
           cd rainbond-operator
           chmod +x ./check.sh
-          ./check.sh
-          docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-          docker build -t "${IMAGE_NAMESPACE}/rainbond-operator:release-2.1" -f ./Dockerfile
-	  docker push "${IMAGE_NAMESPACE}/rainbond-operator:release-2.1"
-
-          
+          ./check.sh         
