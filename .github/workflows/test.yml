@@ -110,6 +110,5 @@ jobs:
         run: |
           git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
           cd rainbond-operator
-          ./check.sh
           chmod +x ./release.sh
           ./release.sh        
