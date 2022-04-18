@@ -114,7 +114,6 @@ jobs:
           ./release.sh 
           
   build-offline:
-    needs: [build-rainbond-region,build-operator,build-ui,build-rainbond-allinone]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
