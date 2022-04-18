@@ -133,7 +133,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: |
-          git clone -b master https://github.com/ZhangSetSail/build-offlice-package.git   
+          git clone -b master -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} https://github.com/ZhangSetSail/build-offlice-package.git   
           cd build-offlice-package
           chmod +x ./enterprise_offline_package.sh 
           ./enterprise_offline_package.sh
