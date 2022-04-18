@@ -165,6 +165,32 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install flake8 yapf==0.26.0
+      - name: Pack offline packages
+        env:
+          IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
+          RBD_VER: ${{ github.event.client_payload.branch }}-dev
+          TRAVIS_PULL_REQUEST: false
+          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE }}
+          DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
+          DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
+        run: |
+          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git   
+          cd rainbond-console
+          chmod +x ./build_dind_package.sh
+          ./build_dind_package.sh
+          
+      - name: Setup aliyun oss
+        uses: manyuanrong/setup-ossutil@master
+        with:
+          endpoint: oss-cn-shanghai.aliyuncs.com
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+          
+      - name:  Push to OSS
+        run: ossutil cp -rf rainbond-dind-*.tgz oss://rainbond-pkg/images-pkg/
         
       - name: Pull code and Build allinone image
         env:
@@ -182,4 +208,5 @@ jobs:
           cd rainbond-console
           chmod +x  ./release.sh
           ./release.sh dind
+      
     
