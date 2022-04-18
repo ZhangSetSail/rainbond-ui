@@ -191,7 +191,9 @@ jobs:
           
       - name:  Push to OSS
       
-        run: ossutil cp -rf rainbond-dind-*.tgz oss://rainbond-pkg/offline/zqhtest/
+        run: |
+          ls -l
+          ossutil cp -rf rainbond-dind-*.tgz oss://rainbond-pkg/offline/zqhtest/
         
       - name: Pull code and Build allinone image
         env:
