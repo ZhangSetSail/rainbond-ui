@@ -26,10 +26,6 @@ jobs:
     needs: build-ui
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-      - name: Log in to the mirror repository
-        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login ${{ secrets.DOMESTIC_BASE_NAME }} -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
-        
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
         with:
@@ -66,9 +62,6 @@ jobs:
         with:
           # The Go version to download (if necessary) and use. Supports semver spec and ranges.
           go-version: 1.13
-
-      - name: Log in to the mirror repository
-        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login ${{ secrets.DOMESTIC_BASE_NAME }} -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
 
       - name: Pull code and Build the Docker image
         env:
@@ -117,11 +110,6 @@ jobs:
     needs: [build-rainbond-allinone,build-rainbond-region,build-operator]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Log in to the mirror repository
-        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login ${{ secrets.DOMESTIC_BASE_NAME }} -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
-
       - name: Pack offline packages
         env:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
@@ -149,13 +137,9 @@ jobs:
         run: ossutil cp -rf rainbond-offline-*.tgz oss://rainbond-pkg/offline/zqhtest/
   
   build-dind:
-    needs: [build-ui,build-rainbond-region]
+    needs: [build-ui,build-rainbond-region,build-operator]
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-      - name: Log in to the mirror repository
-        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login ${{ secrets.DOMESTIC_BASE_NAME }} -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
-        
       - name: Set up Python 3.6
         uses: actions/setup-python@v2
         with:
