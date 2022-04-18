@@ -120,7 +120,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Log in to the mirror repository
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.IMAGE_NAMESPACE }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOMESTIC_DOCKER_PASSWORD }}" | docker login ${{ secrets.DOMESTIC_BASE_NAME }} -u ${{ secrets.DOMESTIC_DOCKER_USERNAME }} --password-stdin
 
       - name: Pack offline packages
         env:
