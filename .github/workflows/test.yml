@@ -23,7 +23,7 @@ jobs:
           ./build.sh
           
   build-rainbond-allinone:
-    needs: build-ui
+#     needs: build-ui
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -114,7 +114,7 @@ jobs:
           ./release.sh 
           
   build-offline:
-    needs: [build-rainbond-allinone,build-rainbond-region,build-operator]
+#     needs: [build-rainbond-allinone,build-rainbond-region,build-operator]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -149,7 +149,7 @@ jobs:
         run: ossutil cp -rf rainbond-offline-*.tgz oss://rainbond-pkg/offline/zqhtest/
   
   build-dind:
-    needs: build-ui
+#     needs: [build-ui,build-rainbond-region]
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
