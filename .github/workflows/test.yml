@@ -133,8 +133,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: |
-          git clone -b master https://${{ secrets.DOCKER_USERNAME }}:${{ secrets.DOCKER_PASSWORD }}@github.com/ZhangSetSail/build-offlice-package.git   
-          cd build-offlice-package
+          wget https://rainbond-script.oss-cn-hangzhou.aliyuncs.com/enterprise_offline_package.sh
           chmod +x ./enterprise_offline_package.sh 
           ./enterprise_offline_package.sh
         
