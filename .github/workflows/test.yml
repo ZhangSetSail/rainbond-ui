@@ -2,7 +2,8 @@ name: TEST
 on: 
   repository_dispatch:
     types:
-      - zqhTest
+      - GitHub
+      - 
 
 jobs:
   build-ui:
@@ -17,7 +18,7 @@ jobs:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-ui.git        
+          git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-ui.git        
           cd rainbond-ui
           chmod +x ./build.sh
           ./build.sh
@@ -48,7 +49,7 @@ jobs:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git   
+          git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-console.git   
           cd rainbond-console
           chmod +x  ./release.sh
           ./release.sh allinone
@@ -77,7 +78,7 @@ jobs:
           DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
           DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE }}
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond.git
+          git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond.git
           cd rainbond
           chmod +x ./release.sh
           ./release.sh all push
@@ -101,7 +102,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           VERSION: ${{ github.event.client_payload.branch }}-dev
         run: |
-          git clone -b release-2.1 https://github.com/ZhangSetSail/rainbond-operator.git
+          git clone -b release-2.1 ${{ github.event.client_payload.clone_url }}/rainbond-operator.git
           cd rainbond-operator
           chmod +x ./release.sh
           ./release.sh 
@@ -161,7 +162,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} https://github.com/ZhangSetSail/rainbond-console.git   
+          git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-console.git   
           cd rainbond-console
           chmod +x ./build_dind_package.sh
           ./build_dind_package.sh
