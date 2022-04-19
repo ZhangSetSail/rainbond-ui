@@ -166,7 +166,7 @@ jobs:
           git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-console.git   
           cd rainbond-console
           chmod +x ./build_dind_package.sh
-          ./build_dind_package.sh
+#          ./build_dind_package.sh
           
       - name: Setup aliyun oss
         uses: manyuanrong/setup-ossutil@master
