@@ -179,7 +179,7 @@ jobs:
       
         run: |
           cd rainbond-console
-          ossutil cp rainbond*.tar oss://rainbond-pkg/offline/zqhtest/
+          ossutil cp -rf ./rainbond*.tar oss://rainbond-pkg/offline/zqhtest/
         
       - name: Pull code and Build allinone image
         env:
