@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build the GitHub Docker image
+      - name: Build the Docker image
         env:
           BUILD_RBD_APP_UI: false
           TRAVIS_PULL_REQUEST: false
@@ -18,23 +18,12 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           VERSION: ${{ github.event.client_payload.version }}
-        if : ${{ github.event.action }} == 'GitHub'
         run: |
-          git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-ui.git        
-          cd rainbond-ui
-          chmod +x ./build.sh
-          ./build.sh
-      - name: Build the GitLab Docker image
-        env:
-          BUILD_RBD_APP_UI: false
-          TRAVIS_PULL_REQUEST: false
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
-          VERSION: ${{ github.event.client_payload.version }}
-        if : ${{ github.event.action }} == 'GitLab'
-        run: |
-          git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-ui.git        
+          if ${{ github.event.action }} == 'GitHub';then
+            git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-ui.git        
+          else
+            git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-ui.git        
+          fi
           cd rainbond-ui
           chmod +x ./build.sh
           ./build.sh
