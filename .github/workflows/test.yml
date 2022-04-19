@@ -166,6 +166,7 @@ jobs:
           TRAVIS_PULL_REQUEST: false
           DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE }}
           DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
+          CLONE_URL: ${{ github.event.client_payload.clone_url }}
         run: |
           git clone -b ${{ github.event.client_payload.branch }} ${{ github.event.client_payload.clone_url }}/rainbond-console.git   
           cd rainbond-console
