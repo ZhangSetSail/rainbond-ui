@@ -100,6 +100,10 @@ jobs:
           IMAGE_NAMESPACE: ${{ secrets.IMAGE_NAMESPACE }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOMESTIC_DOCKER_PASSWORD: ${{ secrets.DOMESTIC_DOCKER_PASSWORD }}
+          DOMESTIC_DOCKER_USERNAME: ${{ secrets.DOMESTIC_DOCKER_USERNAME }}
+          DOMESTIC_BASE_NAME: ${{ secrets.DOMESTIC_BASE_NAME }}
+          DOMESTIC_NAMESPACE: ${{ secrets.DOMESTIC_NAMESPACE }}
           VERSION: ${{ github.event.client_payload.version }}-dev
         run: |
           git clone -b release-2.1 ${{ github.event.client_payload.clone_url }}/rainbond-operator.git
